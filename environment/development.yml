@@ -1,0 +1,17 @@
+# -- General Info --------------------------------------------------------------
+protocol : http
+host     : localhost
+port     : 1337
+type     : development
+timezone : Europe/Madrid
+
+
+# -- Services ------------------------------------------------------------------
+mongo:
+  - name    : primary
+    host    : tapquo.no-ip.info
+    port    : 27017
+    db      : todo
+
+appnima:
+  key: NTQzMjk1NjM5ZTRjZTdhMTM2MTY5MzRkOllQck9EcHpzallramM1ZGJZcmYxRml0dUppWG1MR3g=
