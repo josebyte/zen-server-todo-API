@@ -11,4 +11,7 @@ module.exports = ->
 
 # Promises
 _signup = (user) -> ->
-  Test "POST", "api/signup", user, null, "El usuario #{user.name} se registra con App/Nima", 409
+  Test "POST", "api/signup", user, null, "El usuario #{user.mail} se registra con App/Nima", 409
+
+_login = (user) -> ->
+  Test "POST", "api/login", user, null, "El usuario #{user.mail} se ha logueado.", 200

@@ -28,4 +28,25 @@ User.statics.signup = (appnima) ->
     new user(appnima: appnima).save (error, value) -> promise.done error, value
   promise
 
+User.statics.login = (appnima) ->
+  promise = new Hope.Promise()
+  filter  = "appnima.id": appnima.id
+  properties = appnima: appnima
+  @findOneAndUpdate filter, properties, (error, value) ->
+    error = code: 404, message: "User not found." if not value?
+    promise.done error, value
+  promise
+
+User.methods.parse = ->
+  id        : @_id.toString()
+  mail      : @appnima.mail
+  bio       : @appnima.bio
+  username  : @appnima.username
+  name      : @appnima.name
+  avatar    : @appnima.avatar
+  token     : @appnima.access_token
+  appnima   : @appnima.id
+  expire    : @appnima.expire
+  created_at: @created_at
+
 exports = module.exports = db.model "User", User

@@ -12,6 +12,8 @@ mongo:
     host    : tapquo.no-ip.info
     port    : 27017
     db      : todo
+    user    : todo
+    password: todo
 
 appnima:
   key: NTQzMjk1NjM5ZTRjZTdhMTM2MTY5MzRkOllQck9EcHpzallramM1ZGJZcmYxRml0dUppWG1MR3g=
