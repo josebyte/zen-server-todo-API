@@ -6,6 +6,14 @@ Task    = require "../common/models/task"
 
 module.exports = (server) ->
 
+  server.get "/api/task", (request, response) ->
+    Session(request, response).then (error, session) ->
+      Task.search(user: session).then (error, tasks) ->
+        if error
+          response.json message: error.message, error: error.code
+        else
+          response.json (task.parse() for task in tasks)
+
   server.post "/api/task", (request, response) ->
     if request.required ['text']
       Session(request, response).then (error, session) ->
@@ -47,3 +55,4 @@ module.exports = (server) ->
             response.json message: error.message, error: error.code
           else
             response.ok()
+
