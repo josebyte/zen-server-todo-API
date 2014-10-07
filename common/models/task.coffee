@@ -33,6 +33,11 @@ Task.methods.updateAttributes = (parameters) ->
   @save (error, result) -> promise.done error, result
   promise
 
+Task.methods.delete = ->
+  promise = new Hope.Promise()
+  @remove (error, result) -> promise.done error, result
+  promise
+
 Task.methods.parse = ->
   id        : @_id.toString()
   text      : @text

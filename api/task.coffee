@@ -32,3 +32,18 @@ module.exports = (server) ->
           else
             response.json result.parse()
 
+  server.delete "/api/task", (request, response) ->
+    if request.required ['id']
+      Session(request, response).then (error, session) ->
+        Hope.shield([ ->
+          query =
+            _id: request.parameters.id
+            user: session
+          Task.search query, limit=1
+        , (error, task) ->
+          task.delete()
+        ]).then (error, result) ->
+          if error
+            response.json message: error.message, error: error.code
+          else
+            response.ok()
