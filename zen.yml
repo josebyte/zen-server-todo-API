@@ -6,6 +6,14 @@ api:
   - session
   - task
 
+# -- session -------------------------------------------------------------------
+session:
+  # Cookie Request
+  cookie: todo
+  expire: 86400
+  # HTTP Header
+  authorization: authorization
+
 # -- CORS Properties -----------------------------------------------------------
 headers:
   Access-Control-Allow-Origin: "*"

@@ -1,17 +1,17 @@
 "use strict"
-Appnima = require("zenserver").Appnima
+
 Hope    = require("zenserver").Hope
+Session = require "../common/session"
+Task    = require "../common/models/task"
 
 module.exports = (server) ->
 
-  server.post "/api/register", (request, response) ->
-    if request.required ['mail','todo']
-      Hope.shield([ ->
-        Appnima.login request.parameters
-      , (error, appnima) ->
-        User.signup appnima
-      ]).then (error, user) ->
-        if error
-          response.json message: error.message, error.code
-        else
-          response.json user.parse()
+  server.post "/api/task", (request, response) ->
+    if request.required ['text']
+      Session(request, response).then (error, session) ->
+        request.parameters.user = session
+        Task.register(request.parameters).then (error, task) ->
+          if error
+            response.json message: error.message, error: error.code
+          else
+            response.json task.parse()
