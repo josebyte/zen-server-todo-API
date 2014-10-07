@@ -15,3 +15,20 @@ module.exports = (server) ->
             response.json message: error.message, error: error.code
           else
             response.json task.parse()
+
+  server.put "/api/task", (request, response) ->
+    if request.required ['id']
+      Session(request, response).then (error, session) ->
+        Hope.shield([ ->
+          query =
+            _id: request.parameters.id
+            user: session
+          Task.search query, limit=1
+        , (error, task) ->
+          task.updateAttributes request.parameters
+        ]).then (error, result) ->
+          if error
+            response.json message: error.message, error: error.code
+          else
+            response.json result.parse()
+
